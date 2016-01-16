@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="65d086ee9daaf87b5af62ad24471edafa433354c">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-appindexing-8.4.0_1641e67f12facc4fb7c5b96eed7f9f34d0b6201c.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="f2df436a8f02ce7e4d7d209671fc45f97c470f0e">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-wallet-8.4.0_5c88e58de389bde9e999c1930c90120c755a9b68.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="04de44f90606c77f3b28cf44861f306290505aac">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-maps-8.4.0_b0551eaf906d49ebdbd7495769701bd7666b8af0.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d358b3dd49a7c67844622dcbc9cf4339e13952ce">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.android.support-mediarouter-v7-23.0.0_48d9948934b7d848d1fcaeb6c1865fe4ab9e85ff.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="2d7fe76982677315c4dc4edfb459c8ca718a9d4c">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-gcm-8.4.0_cbb27263027bb09dfacffd0f0eab7ebfb426b7b0.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.1.1_e795c5fc4bee928ef906bc7ecdff27fa50761b50.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="551e78f21acf69ebfb489c0e79647824c838013e">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-cast-8.4.0_104020272219580d20929c92ef84569463249b8f.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.1_b439846a2842361f3fc4f28aa3d1a7b0d0378907.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.1.1_d779c729272ba12eab3e28d84c8841f802c018e8.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-measurement/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="613298b7aa012f121ce542881c0a599ebd8078f2">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-measurement-8.4.0_0b7ccfa314665902a05340b4cd36582acea3a030.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1a78298e7724d5440d210bcb946b3493250d354d">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-plus-8.4.0_a32c3630df822402bff26c18d537f65706654f4a.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="966e5771a5a2ebfb31bf00d7cd6cd2546d245517">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-auth-8.4.0_a5e7282187ef46c370a280c800a54e88fbbd9ca2.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.1_b93fabb877eee8571d66708f31d6c5a289cc2bfa.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="b5e7892fb0708e792e0e933c4c0a0ca0ac7831fb">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-ads-8.4.0_1aa7855bd2115f5edf5d24c466e4e68b232c03a5.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1c9f35e952b212c843f7bd2c7eec8e82ad95602e">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-analytics-8.4.0_d605efb7bfce35b0e9609fdf69c3d2fb897d7746.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="b36f30ac5ee5d5214f4b1e2ac49f11889d58e71a">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-drive-8.4.0_501712bdee3e52fca3564736aa18664f05d16089.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/23.0.0/jars/libs/internal_impl-23.0.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="03d38bb042efe3e5ce27ba66b729a9523c36d8fe">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.0_f09b0d525bb53c3c1d84169f82376afa3b128713.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a8412b654dab86d57bf90683367488211c8a81f1">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-location-8.4.0_aca3c3b3618fd1215c775d0bbf64e97c8fd5b34c.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appinvite/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="9fe026fb4c7fce21bc5142f6e1bdf844f28061ac">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-appinvite-8.4.0_eb36ffc9a8eba71252312cac47b3278ec8f5783a.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="08d34b2d135c1cc96ab506fd8bf6916d1e2f391a">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-panorama-8.4.0_e423e3aa327052d58e2f8bda8a1beaf432be7d02.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="fef2b3e4b6b1b0e5fe7b69fa137a5fa55a3182ab">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-base-8.4.0_311e3b7b964940ac33ad6608ea049d522e6ca77e.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="0194a7409c40de94fb539d4ad9928ec5d47afeb7">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-safetynet-8.4.0_b13debb9942d24e14fe572062fd9e6a237ee56c8.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="b82b8e847173c28efffcd291b2a0b1ae9ad17fa4">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-identity-8.4.0_eb114b6017d5f935d5a97f8638fcf82d42cf745d.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-vision/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="dfecc4d835cdabcdecf7e95f0d20a3ef1e9d8ef4">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-vision-8.4.0_d5c0e61563ddd798ba003fb5dc4d33564594b36c.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c54246475c1bb64ac6857d1320364bfbfeda2c46">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-fitness-8.4.0_194e7383eda5ac7c501385410f54404f4d248788.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="8e673cdfadd8f2d98fdb2fda2285c30f6e449782">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-8.4.0_d2d5413422ae964acf33bc3287d8fd3b0e54eb94.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e167a34eaca0b31704212f43f9576ea84e05046f">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-wearable-8.4.0_deb48bc1c3d2ba6deb156668d73cb0ebc8819a05.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="3a364cc6b698d1b3b2d284f64618daaa7fe77ddf">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-games-8.4.0_8f8420fd94e3cb0b75590b2648d6265204bbdf05.jar" />
+    </item>
+    <item
+        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/8.4.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="9cad249cf62751a323d9af568caf12284b7d6062">
+        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-nearby-8.4.0_61adf381983824611d20682d44556182602bc635.jar" />
+    </item>
+
+</items>
