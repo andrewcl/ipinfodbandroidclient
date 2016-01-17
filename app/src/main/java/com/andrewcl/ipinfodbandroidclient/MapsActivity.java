@@ -87,10 +87,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             try {
                 StringBuilder urlBuilder = new StringBuilder();
                 urlBuilder.append(IP_AGNOSTIC_API_URL);
-                urlBuilder.append(ipAddressString);
+                urlBuilder.append(ipAddressString[0]); //NOTE: String... sends array, access first element
 
-//                URL url = new URL(urlBuilder.toString());
-                URL url = new URL("http://ipinfodb.andrewcl.com/api/GET/98.26.47.74");
+                URL url = new URL(urlBuilder.toString());
                 urlConnection = (HttpURLConnection) url.openConnection();
 
                 InputStream inputStream = new BufferedInputStream(urlConnection.getInputStream());
