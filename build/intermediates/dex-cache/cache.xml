@@ -1,19 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" >
-
-    <item
-        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/jars/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
-        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-23.1.1_3d1106a8a5494c196ff0dd231f69a76c2f9fb5c8.jar" />
-    </item>
-    <item
-        jar="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/jars/classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
-        <dex dex="/Users/andrewliu/Developer/IPInfoDBAndroidClient/app/build/intermediates/pre-dexed/debug/com.android.support-design-23.1.1_b4b4895637b2c65e0618c7924f8a8a467d1e4378.jar" />
-    </item>
-
-</items>
+<items version="2" />
