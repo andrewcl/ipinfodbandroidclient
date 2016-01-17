@@ -81,7 +81,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         new AccessIPAddressMetadata().execute("98.26.47.74");
     }
 
-
+    public void queueIPAddressForDownload(List<String> ipAddressArray) {
+        for (String ipAddress : ipAddressArray) {
+            new AccessIPAddressMetadata().execute(ipAddress);
+        }
+    }
 
     //MARK - Marker Helpers
     private void showAllMarkers() {
