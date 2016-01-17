@@ -63,7 +63,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
             @Override
             public void onMapLoaded() {
-                //TODO: determine if refresh method required. Schedule/process points not yet added
+                //Process backlog queue of coordinates that have not yet been added to mMap
                 mMapHasLoaded = true;
                 processCoordinateBacklog();
             }
@@ -95,6 +95,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             builder.include(mark.getPosition());
         }
 
+        //TODO: dynamically determine marker size. Use to set padding
+
         LatLngBounds latLngBounds = builder.build();
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(latLngBounds, MAP_PADDING);
         mMap.animateCamera(cameraUpdate);
@@ -111,7 +113,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     /*
-     * Adds single marker and refreshes
+     * Adds single marker and refreshes if marker has not been added to map
      */
     private void addMarkerToMapAndRefresh(LatLng coordinates) {
         Boolean successfulMarkerAdd = addMarkerToMap(coordinates);
@@ -126,6 +128,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.clear();
     }
 
+    /*
+     * iterate through backlog of LatLng. Process and add in batch before triggering map refresh
+     */
     private void processCoordinateBacklog()
     {
         Boolean triggerRefresh = false;
