@@ -25,11 +25,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Stack;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-    private final int MAP_PADDING = 20;
+    private final int MAP_PADDING = 60;
 
     private static final String IP_AGNOSTIC_API_URL = "http://ipinfodb.andrewcl.com/api/GET/";
     private static final String STATUS_CODE_VALID = "OK";
@@ -38,9 +41,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final String RESPONSE_KEY_LONGITUDE = "longitude";
 
     private GoogleMap mMap;
+    private Boolean mMapHasLoaded = false;
 
-    private Map<LatLng, Marker> drawnMarkersMap = new HashMap<>();
-    private List<LatLng> queuedCoordinatesArray = new ArrayList<>();
+    private Map<LatLng, Marker> mDrawnMarkersMap = new HashMap<>();
+    private Queue<LatLng> mCoordinatesQueue = new LinkedList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,39 +57,87 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+            @Override
+            public void onMapLoaded() {
+                //TODO: determine if refresh method required. Schedule/process points not yet added
+                mMapHasLoaded = true;
+                processCoordinateBacklog();
+            }
+        });
+
+        LatLng loadingCoordinates = new LatLng(0, 0);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(loadingCoordinates));
 
         // Add a marker to TransLoc headquarters and move the camera
         LatLng transloc = new LatLng(35.875208, -78.840620);
-        mMap.addMarker(new MarkerOptions().position(transloc).title("Marker at TransLoc"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(transloc));
+//        addMarkerToMap(transloc);
+        addMarkerToMapAndRefresh(transloc);
 
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(transloc).zoom(12).build();
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
+        //TEST: queue new locations to display
         new AccessIPAddressMetadata().execute("98.26.47.74");
     }
 
+
+
+    //MARK - Marker Helpers
     private void showAllMarkers() {
+        //Safety check in case layout has not occurred for mMap
+        if (!mMapHasLoaded) {
+            return;
+        }
+
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        for (Marker mark : this.drawnMarkersMap.values()) {
+        for (Marker mark : this.mDrawnMarkersMap.values()) {
             builder.include(mark.getPosition());
         }
 
         LatLngBounds latLngBounds = builder.build();
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(latLngBounds, MAP_PADDING);
-        mMap.moveCamera(cameraUpdate); //TODO: determine if animate better visually
+        mMap.animateCamera(cameraUpdate);
+    }
+
+    //NOTE: prevents overdraw by comparing new coordinate against HashMap of already drawn coordinates
+    private Boolean addMarkerToMap(LatLng coordinates) {
+        if (!mDrawnMarkersMap.containsKey(coordinates)) {
+            Marker marker = mMap.addMarker(new MarkerOptions().position(coordinates).title("Marker at TransLoc"));
+            mDrawnMarkersMap.put(coordinates, marker);
+            return true;
+        }
+        return false;
+    }
+
+    /*
+     * Adds single marker and refreshes
+     */
+    private void addMarkerToMapAndRefresh(LatLng coordinates) {
+        Boolean successfulMarkerAdd = addMarkerToMap(coordinates);
+        if (successfulMarkerAdd) {
+            showAllMarkers();
+        }
+    }
+
+    private void clearMarkersFromMap() {
+        mDrawnMarkersMap = new HashMap<>();
+        mCoordinatesQueue.clear();
+        mMap.clear();
+    }
+
+    private void processCoordinateBacklog()
+    {
+        Boolean triggerRefresh = false;
+        while (!mCoordinatesQueue.isEmpty()) {
+            LatLng coordinate = mCoordinatesQueue.poll();
+            Boolean successfulMarkerAdd = addMarkerToMap(coordinate);
+            triggerRefresh = successfulMarkerAdd ? true : triggerRefresh;
+        }
+
+        if (triggerRefresh) {
+            showAllMarkers();
+        }
     }
 
     //MARK - AsyncTask for API call
@@ -135,13 +188,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         protected void onPostExecute(Boolean downloadSuccess) {
             if (coordinates != null) {
-                queuedCoordinatesArray.add(coordinates);
+                mCoordinatesQueue.add(coordinates);
 
                 //NOTE: testing code only. Should only be used for
                 mMap.addMarker(new MarkerOptions().position(coordinates).title("New Marker"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinates));
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(coordinates).zoom(12).build();
                 mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+                showAllMarkers();
             }
         }
     }
