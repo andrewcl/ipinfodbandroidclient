@@ -11,6 +11,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -28,12 +29,11 @@ import java.util.List;
 import java.util.Map;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+    private final int MAP_PADDING = 20;
 
     private static final String IP_AGNOSTIC_API_URL = "http://ipinfodb.andrewcl.com/api/GET/";
-
-    private static final String RESPONSE_KEY_STATUS = "statusCode";
     private static final String STATUS_CODE_VALID = "OK";
-
+    private static final String RESPONSE_KEY_STATUS = "statusCode";
     private static final String RESPONSE_KEY_LATITUDE = "latitude";
     private static final String RESPONSE_KEY_LONGITUDE = "longitude";
 
@@ -76,6 +76,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         new AccessIPAddressMetadata().execute("98.26.47.74");
     }
 
+    private void showAllMarkers() {
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        for (Marker mark : this.drawnMarkersMap.values()) {
+            builder.include(mark.getPosition());
+        }
+
+        LatLngBounds latLngBounds = builder.build();
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(latLngBounds, MAP_PADDING);
+        mMap.moveCamera(cameraUpdate); //TODO: determine if animate better visually
+    }
+
+    //MARK - AsyncTask for API call
     private class AccessIPAddressMetadata extends AsyncTask<String, Void, Boolean> {
         private HttpURLConnection urlConnection;
         private LatLng coordinates;
