@@ -47,6 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private Map<LatLng, Marker> mDrawnMarkersMap = new HashMap<>();
     private Queue<LatLng> mCoordinatesQueue = new LinkedList<>();
+    private Queue<AccessIPAddressMetadata> mServiceQueue = new LinkedList<>();
 
 
     @Override
@@ -57,16 +58,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent passedIntent = getIntent();
         Bundle passedBundle = passedIntent.getExtras();
 
-        if (passedBundle != null && passedBundle.getStringArrayList(MainActivity.INTENT_PARAMATER_KEY_IP_ADDRESS) != null) {
-            ArrayList<String> ipAddresArrayList = passedBundle.getStringArrayList(MainActivity.INTENT_PARAMATER_KEY_IP_ADDRESS);
+        Boolean hasValidStartAddress = passedBundle.getString(MainActivity.INTENT_PARAMETER_KEY_ADDRESS_START) != null;
+        Boolean hasValidStopAddress = passedBundle.getString(MainActivity.INTENT_PARAMATER_KEY_ADDRESS_STOP) != null;
+        if (passedBundle != null && hasValidStartAddress && hasValidStopAddress) {
+            String startIPAddressRange = passedBundle.getString(MainActivity.INTENT_PARAMETER_KEY_ADDRESS_START);
+            String stopIPAddressRange = passedBundle.getString(MainActivity.INTENT_PARAMATER_KEY_ADDRESS_STOP);
 
-            //not ideal, but syntax for converting b/w ArrayList <-> List is fuzzy at best
-            List<String> ipAddressList = new ArrayList<>();
-            for (String ipAddressString : ipAddresArrayList) {
-                ipAddressList.add(ipAddressString);
-            }
-
+            ArrayList<String> ipAddressList = IPAddressUtilities.stringArrayFromRange(startIPAddressRange, stopIPAddressRange);
             queueIPAddressForDownload(ipAddressList);
+            System.out.println("Finished iterating through List. Size: " + Integer.toString(ipAddressList.size()));
         }
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -91,7 +91,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.moveCamera(CameraUpdateFactory.newLatLng(loadingCoordinates));
     }
 
-    public void queueIPAddressForDownload(List<String> ipAddressArray) {
+    public void queueIPAddressForDownload(ArrayList<String> ipAddressArray) {
         for (String ipAddress : ipAddressArray) {
             new AccessIPAddressMetadata().execute(ipAddress);
         }
@@ -153,8 +153,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /*
      * iterate through backlog of LatLng. Process and add in batch before triggering map refresh
      */
-    private void processCoordinateBacklog()
-    {
+    private void processCoordinateBacklog() {
         if (mCoordinatesQueue.isEmpty() || !mMapHasLoaded) {
             return;
         }
@@ -164,6 +163,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LatLng coordinate = mCoordinatesQueue.poll();
             Boolean successfulMarkerAdd = addMarkerToMap(coordinate);
             triggerRefresh = successfulMarkerAdd ? true : triggerRefresh;
+
+            if (triggerRefresh) {
+                System.out.println("Found new Marker - Lat: " + coordinate.latitude + ", Lng: " + coordinate.longitude);
+            }
         }
 
         if (triggerRefresh) {
@@ -175,8 +178,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private class AccessIPAddressMetadata extends AsyncTask<String, Void, Boolean> {
         private HttpURLConnection urlConnection;
         private LatLng coordinates;
+        private String mAddress;
 
         protected Boolean doInBackground(String... ipAddressString) {
+            mAddress = ipAddressString[0];
             StringBuilder stringBuilder = new StringBuilder();
             Boolean downloadSuccess = false;
 
@@ -218,9 +223,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         protected void onPostExecute(Boolean downloadSuccess) {
-            if (coordinates != null) {
+            if (coordinates != null && getBaseContext() != null) {
                 mCoordinatesQueue.add(coordinates);
-//                addMarkerToMapAndRefresh(coordinates);
+                System.out.println("Download ip: " + mAddress + " coord - Lat: " + coordinates.latitude + ", Lng: " + coordinates.longitude);
+
                 processCoordinateBacklog();
             }
         }

@@ -28,7 +28,8 @@ import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String INTENT_PARAMATER_KEY_IP_ADDRESS = "ip_addresses";
+    public static final String INTENT_PARAMETER_KEY_ADDRESS_START = "address_start";
+    public static final String INTENT_PARAMATER_KEY_ADDRESS_STOP = "address_stop";
 
     private EditText mStartEditText;
     private EditText mStopEditText;
@@ -49,11 +50,6 @@ public class MainActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                ArrayList<String> dummyData = new ArrayList<>();
-//                dummyData.add("98.26.47.74");
-//                dummyData.add("173.236.244.234");
-//                dummyData.add("68.180.194.242");
-
                 //Validate EditText text is valid ip address
                 Boolean startTextValid = Patterns.IP_ADDRESS.matcher(mStartEditText.getText()).find() && mStartEditText.getText().length() > 0;
                 Boolean stopTextValid = Patterns.IP_ADDRESS.matcher(mStopEditText.getText()).find() && mStopEditText.getText().length() > 0;
@@ -61,11 +57,11 @@ public class MainActivity extends AppCompatActivity {
                 if (startTextValid && stopTextValid) {
                     String startIPAddressString = mStartEditText.getText().toString();
                     String stopIPAddressString = mStopEditText.getText().toString();
-                    ArrayList<String> ipAddressArray = stringArrayFromRange(startIPAddressString, stopIPAddressString);
 
                     Intent launchMapsIntent = new Intent(MainActivity.this, MapsActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putStringArrayList(INTENT_PARAMATER_KEY_IP_ADDRESS, ipAddressArray);
+                    bundle.putString(INTENT_PARAMETER_KEY_ADDRESS_START, startIPAddressString);
+                    bundle.putString(INTENT_PARAMATER_KEY_ADDRESS_STOP, stopIPAddressString);
                     launchMapsIntent.putExtras(bundle);
                     MainActivity.this.startActivity(launchMapsIntent);
                 } else {
@@ -73,55 +69,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private ArrayList<String> stringArrayFromRange(String startIPAddressRange, String stopIPAddressRange) {
-        int startInteger = convertIPAddressStringToInt(startIPAddressRange);
-        int stopInteger = convertIPAddressStringToInt(stopIPAddressRange);
-
-        //Switches order in case user has reversed ip address range fields
-        if (startInteger > stopInteger) {
-            int newStopInt = startInteger;
-            startInteger = stopInteger;
-            stopInteger = newStopInt;
-        }
-
-        ArrayList<String> ipAddressesArray = new ArrayList<>();
-        while (startInteger <= stopInteger) {
-            InetAddress inetAddress = ipIntToInetAddress(startInteger);
-            ipAddressesArray.add(inetAddress.toString());
-            startInteger += 1;
-        }
-        return ipAddressesArray;
-    }
-
-    public InetAddress ipIntToInetAddress(int ipAsInt) {
-        byte[] ipAsByteArray = intToByteArray(ipAsInt);
-        try {
-            InetAddress inetAddress = InetAddress.getByAddress(ipAsByteArray);
-            return inetAddress;
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static byte[] intToByteArray(int a) {
-        byte[] ret = new byte[4];
-        ret[3] = (byte) (a & 0xFF);
-        ret[2] = (byte) ((a >> 8) & 0xFF);
-        ret[1] = (byte) ((a >> 16) & 0xFF);
-        ret[0] = (byte) ((a >> 24) & 0xFF);
-        return ret;
-    }
-
-    public static int convertIPAddressStringToInt(String ipAddressString) {
-        String[] ipAddressInArray = ipAddressString.split("\\.");
-        int ipAddress = 0;
-        for (int i = 0; i < ipAddressInArray.length; i++) {
-            int ipComponentAsInt = Integer.parseInt(ipAddressInArray[i]);
-            ipAddress += ipComponentAsInt * Math.pow(256, 3 - i);
-        }
-        return ipAddress;
     }
 }
