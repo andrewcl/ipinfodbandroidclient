@@ -36,7 +36,7 @@ import java.util.Stack;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private final int MAP_PADDING = 60;
 
-    private static final String IP_AGNOSTIC_API_URL = "http://ipinfodb.andrewcl.com/api/GET/";
+    private static final String IP_AGNOSTIC_API_URL = "http://ipinfodb.andrewcl.com/api/GET";
     private static final String STATUS_CODE_VALID = "OK";
     private static final String RESPONSE_KEY_STATUS = "statusCode";
     private static final String RESPONSE_KEY_LATITUDE = "latitude";
@@ -57,7 +57,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent passedIntent = getIntent();
         Bundle passedBundle = passedIntent.getExtras();
 
-        if (passedBundle.getStringArrayList(MainActivity.INTENT_PARAMATER_KEY_IP_ADDRESS) != null) {
+        if (passedBundle != null && passedBundle.getStringArrayList(MainActivity.INTENT_PARAMATER_KEY_IP_ADDRESS) != null) {
             ArrayList<String> ipAddresArrayList = passedBundle.getStringArrayList(MainActivity.INTENT_PARAMATER_KEY_IP_ADDRESS);
 
             //not ideal, but syntax for converting b/w ArrayList <-> List is fuzzy at best
@@ -89,14 +89,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         LatLng loadingCoordinates = new LatLng(0, 0);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(loadingCoordinates));
-
-        // Add a marker to TransLoc headquarters and move the camera
-        LatLng transloc = new LatLng(35.875208, -78.840620);
-//        addMarkerToMap(transloc);
-        addMarkerToMapAndRefresh(transloc);
-
-        //TEST: queue new locations to display
-        new AccessIPAddressMetadata().execute("98.26.47.74");
     }
 
     public void queueIPAddressForDownload(List<String> ipAddressArray) {
@@ -118,7 +110,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         //TODO: dynamically determine marker size. Use to set padding
-
         LatLngBounds latLngBounds = builder.build();
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(latLngBounds, MAP_PADDING);
         mMap.animateCamera(cameraUpdate);
@@ -126,6 +117,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     //NOTE: prevents overdraw by comparing new coordinate against HashMap of already drawn coordinates
     private Boolean addMarkerToMap(LatLng coordinates) {
+        if (!mMapHasLoaded) {
+            return false;
+        }
+
         if (!mDrawnMarkersMap.containsKey(coordinates)) {
             Marker marker = mMap.addMarker(new MarkerOptions().position(coordinates).title("Marker at TransLoc"));
             mDrawnMarkersMap.put(coordinates, marker);
@@ -138,6 +133,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * Adds single marker and refreshes if marker has not been added to map
      */
     private void addMarkerToMapAndRefresh(LatLng coordinates) {
+        if (!mMapHasLoaded) {
+            return;
+        }
+
         Boolean successfulMarkerAdd = addMarkerToMap(coordinates);
         if (successfulMarkerAdd) {
             showAllMarkers();
@@ -155,6 +154,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     private void processCoordinateBacklog()
     {
+        if (mCoordinatesQueue.isEmpty() || !mMapHasLoaded) {
+            return;
+        }
+
         Boolean triggerRefresh = false;
         while (!mCoordinatesQueue.isEmpty()) {
             LatLng coordinate = mCoordinatesQueue.poll();
@@ -216,14 +219,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         protected void onPostExecute(Boolean downloadSuccess) {
             if (coordinates != null) {
                 mCoordinatesQueue.add(coordinates);
-
-                //NOTE: testing code only. Should only be used for
-                mMap.addMarker(new MarkerOptions().position(coordinates).title("New Marker"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinates));
-                CameraPosition cameraPosition = new CameraPosition.Builder().target(coordinates).zoom(12).build();
-                mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-                showAllMarkers();
+                addMarkerToMapAndRefresh(coordinates);
             }
         }
     }
