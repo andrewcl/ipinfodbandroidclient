@@ -7,6 +7,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import java.lang.reflect.Array;
 import java.net.InetAddress;
@@ -20,17 +22,26 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String INTENT_PARAMATER_KEY_IP_ADDRESS = "ip_addresses";
 
+    private EditText mStartEditText;
+    private EditText mStopEditText;
+    private Button mButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        mStartEditText = (EditText)findViewById(R.id.edit_text_range_start);
+        mStopEditText = (EditText)findViewById(R.id.edit_text_range_stop);
+
+        mButton = (Button)findViewById(R.id.button_launch_maps_activity);
+        mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO: handle processing this!!!! Not production ready
                 //NOTE: provides readonly copy of values to launched activity
                 ArrayList<String> dummyData = new ArrayList<>();
                 dummyData.add("98.26.47.74");

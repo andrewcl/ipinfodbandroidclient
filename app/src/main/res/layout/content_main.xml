@@ -24,6 +24,16 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/main_button_padding_vertical" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/main_entry_warning"
+        android:textAlignment="center" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_button_padding_vertical" />
+
     <EditText
         android:id="@+id/edit_text_range_start"
         android:layout_width="match_parent"

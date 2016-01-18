@@ -4,4 +4,5 @@
     <string name="title_activity_main">MainActivity</string>
 
     <string name="main_introduction">Enter in an IP address range below\nClick button to load data in map</string>
+    <string name="main_entry_warning">ip addresses must be deliminated with periods\n Example: 120.22.11.01</string>
 </resources>
