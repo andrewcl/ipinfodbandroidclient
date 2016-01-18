@@ -1,5 +1,6 @@
 package com.andrewcl.ipinfodbandroidclient;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -51,6 +53,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        Intent passedIntent = getIntent();
+        Bundle passedBundle = passedIntent.getExtras();
+
+        if (passedBundle.getStringArrayList(MainActivity.INTENT_PARAMATER_KEY_IP_ADDRESS) != null) {
+            ArrayList<String> ipAddresArrayList = passedBundle.getStringArrayList(MainActivity.INTENT_PARAMATER_KEY_IP_ADDRESS);
+
+            //not ideal, but syntax for converting b/w ArrayList <-> List is fuzzy at best
+            List<String> ipAddressList = new ArrayList<>();
+            for (String ipAddressString : ipAddresArrayList) {
+                ipAddressList.add(ipAddressString);
+            }
+
+            queueIPAddressForDownload(ipAddressList);
+        }
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
