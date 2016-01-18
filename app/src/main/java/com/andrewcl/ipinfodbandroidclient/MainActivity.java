@@ -69,9 +69,6 @@ public class MainActivity extends AppCompatActivity {
                     launchMapsIntent.putExtras(bundle);
                     MainActivity.this.startActivity(launchMapsIntent);
                 } else {
-//                    Toast warningToast = new Toast(MainActivity.this);
-//                    warningToast.makeText(MainActivity.this, "ip address must match pattern!!!", Toast.LENGTH_LONG);
-//                    warningToast.show();
                     Toast.makeText(getApplicationContext(), "ip address must match pattern!!!", Toast.LENGTH_LONG).show();
                 }
             }
@@ -83,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         int stopInteger = convertIPAddressStringToInt(stopIPAddressRange);
 
         //Switches order in case user has reversed ip address range fields
-        if (startInteger < stopInteger) {
+        if (startInteger > stopInteger) {
             int newStopInt = startInteger;
             startInteger = stopInteger;
             stopInteger = newStopInt;
