@@ -60,6 +60,23 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/main_button_padding_vertical" />
 
+    <!-- Fine Grain Search UI-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="enables fine grain search\niterates addresses by 255 by default"
+        android:textAlignment="center" />
+
+    <ToggleButton
+        android:id="@+id/toggle_button_fine_grain"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_button_height"
+        android:checked="false" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/main_button_padding_vertical" />
+
     <Button
         android:id="@+id/button_launch_maps_activity"
         android:layout_width="match_parent"

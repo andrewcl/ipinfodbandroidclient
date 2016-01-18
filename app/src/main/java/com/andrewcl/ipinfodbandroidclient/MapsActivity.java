@@ -47,24 +47,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private Map<LatLng, Marker> mDrawnMarkersMap = new HashMap<>();
     private Queue<LatLng> mCoordinatesQueue = new LinkedList<>();
-    private Queue<AccessIPAddressMetadata> mServiceQueue = new LinkedList<>();
-
+    private int mAmountServiceCalls;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        mAmountServiceCalls = 0;
 
         Intent passedIntent = getIntent();
         Bundle passedBundle = passedIntent.getExtras();
 
         Boolean hasValidStartAddress = passedBundle.getString(MainActivity.INTENT_PARAMETER_KEY_ADDRESS_START) != null;
-        Boolean hasValidStopAddress = passedBundle.getString(MainActivity.INTENT_PARAMATER_KEY_ADDRESS_STOP) != null;
+        Boolean hasValidStopAddress = passedBundle.getString(MainActivity.INTENT_PARAMETER_KEY_ADDRESS_STOP) != null;
         if (passedBundle != null && hasValidStartAddress && hasValidStopAddress) {
             String startIPAddressRange = passedBundle.getString(MainActivity.INTENT_PARAMETER_KEY_ADDRESS_START);
-            String stopIPAddressRange = passedBundle.getString(MainActivity.INTENT_PARAMATER_KEY_ADDRESS_STOP);
+            String stopIPAddressRange = passedBundle.getString(MainActivity.INTENT_PARAMETER_KEY_ADDRESS_STOP);
+            Boolean enableFineSearch = passedBundle.getBoolean(MainActivity.INTENT_PARAMETER_KEY_FINE_SEARCH, false);
 
-            ArrayList<String> ipAddressList = IPAddressUtilities.stringArrayFromRange(startIPAddressRange, stopIPAddressRange);
+            ArrayList<String> ipAddressList = IPAddressUtilities.stringArrayFromRange(!enableFineSearch, startIPAddressRange, stopIPAddressRange);
+            mAmountServiceCalls = ipAddressList.size();
             queueIPAddressForDownload(ipAddressList);
             System.out.println("Finished iterating through List. Size: " + Integer.toString(ipAddressList.size()));
         }
@@ -223,11 +225,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         protected void onPostExecute(Boolean downloadSuccess) {
+            mAmountServiceCalls += 1;
             if (coordinates != null && getBaseContext() != null) {
                 mCoordinatesQueue.add(coordinates);
                 System.out.println("Download ip: " + mAddress + " coord - Lat: " + coordinates.latitude + ", Lng: " + coordinates.longitude);
 
                 processCoordinateBacklog();
+            }
+
+            if (mAmountServiceCalls == 0) {
+                System.out.println("All AccessIPAddressMetadata AsyncTask calls have finished");
             }
         }
     }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class IPAddressUtilities {
 
-    public static ArrayList<String> stringArrayFromRange(String startIPAddressRange, String stopIPAddressRange) {
+    public static ArrayList<String> stringArrayFromRange(Boolean skipSearch, String startIPAddressRange, String stopIPAddressRange) {
         int startInteger = convertIPAddressStringToInt(startIPAddressRange);
         int stopInteger = convertIPAddressStringToInt(stopIPAddressRange);
 
@@ -24,7 +24,7 @@ public class IPAddressUtilities {
         while (startInteger <= stopInteger) {
             InetAddress inetAddress = ipIntToInetAddress(startInteger);
             ipAddressesArray.add(inetAddress.toString());
-            startInteger += 1;
+            startInteger += skipSearch ? 255 : 1;
         }
         return ipAddressesArray;
     }

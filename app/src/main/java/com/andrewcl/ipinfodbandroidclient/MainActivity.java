@@ -15,6 +15,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.lang.reflect.Array;
 import java.net.InetAddress;
@@ -29,10 +30,12 @@ import java.util.regex.Pattern;
 public class MainActivity extends AppCompatActivity {
 
     public static final String INTENT_PARAMETER_KEY_ADDRESS_START = "address_start";
-    public static final String INTENT_PARAMATER_KEY_ADDRESS_STOP = "address_stop";
+    public static final String INTENT_PARAMETER_KEY_ADDRESS_STOP = "address_stop";
+    public static final String INTENT_PARAMETER_KEY_FINE_SEARCH = "fine_grain_search";
 
     private EditText mStartEditText;
     private EditText mStopEditText;
+    private ToggleButton mToggleButton;
     private Button mButton;
 
     @Override
@@ -46,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         mStartEditText = (EditText) findViewById(R.id.edit_text_range_start);
         mStopEditText = (EditText) findViewById(R.id.edit_text_range_stop);
 
+        mToggleButton = (ToggleButton) findViewById(R.id.toggle_button_fine_grain);
+
         mButton = (Button) findViewById(R.id.button_launch_maps_activity);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,11 +62,14 @@ public class MainActivity extends AppCompatActivity {
                 if (startTextValid && stopTextValid) {
                     String startIPAddressString = mStartEditText.getText().toString();
                     String stopIPAddressString = mStopEditText.getText().toString();
+                    Boolean enableFineSearch = mToggleButton.isChecked();
 
-                    Intent launchMapsIntent = new Intent(MainActivity.this, MapsActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString(INTENT_PARAMETER_KEY_ADDRESS_START, startIPAddressString);
-                    bundle.putString(INTENT_PARAMATER_KEY_ADDRESS_STOP, stopIPAddressString);
+                    bundle.putString(INTENT_PARAMETER_KEY_ADDRESS_STOP, stopIPAddressString);
+                    bundle.putBoolean(INTENT_PARAMETER_KEY_FINE_SEARCH, enableFineSearch);
+
+                    Intent launchMapsIntent = new Intent(MainActivity.this, MapsActivity.class);
                     launchMapsIntent.putExtras(bundle);
                     MainActivity.this.startActivity(launchMapsIntent);
                 } else {
