@@ -6,9 +6,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.net.InetAddress;
@@ -17,6 +23,8 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,47 +42,54 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mStartEditText = (EditText)findViewById(R.id.edit_text_range_start);
-        mStopEditText = (EditText)findViewById(R.id.edit_text_range_stop);
+        mStartEditText = (EditText) findViewById(R.id.edit_text_range_start);
+        mStopEditText = (EditText) findViewById(R.id.edit_text_range_stop);
 
-        mButton = (Button)findViewById(R.id.button_launch_maps_activity);
+        mButton = (Button) findViewById(R.id.button_launch_maps_activity);
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: handle processing this!!!! Not production ready
-                //NOTE: provides readonly copy of values to launched activity
-                ArrayList<String> dummyData = new ArrayList<>();
-                dummyData.add("98.26.47.74");
-                dummyData.add("173.236.244.234");
-                dummyData.add("68.180.194.242");
+//                ArrayList<String> dummyData = new ArrayList<>();
+//                dummyData.add("98.26.47.74");
+//                dummyData.add("173.236.244.234");
+//                dummyData.add("68.180.194.242");
 
-                Intent launchMapsIntent = new Intent(MainActivity.this, MapsActivity.class);
+                //Validate EditText text is valid ip address
+                Boolean startTextValid = Patterns.IP_ADDRESS.matcher(mStartEditText.getText()).find() && mStartEditText.getText().length() > 0;
+                Boolean stopTextValid = Patterns.IP_ADDRESS.matcher(mStopEditText.getText()).find() && mStopEditText.getText().length() > 0;
 
-                Bundle bundle = new Bundle();
-                bundle.putStringArrayList(INTENT_PARAMATER_KEY_IP_ADDRESS, dummyData);
-                launchMapsIntent.putExtras(bundle);
+                if (startTextValid && stopTextValid) {
+                    String startIPAddressString = mStartEditText.getText().toString();
+                    String stopIPAddressString = mStopEditText.getText().toString();
+                    ArrayList<String> ipAddressArray = stringArrayFromRange(startIPAddressString, stopIPAddressString);
 
-                MainActivity.this.startActivity(launchMapsIntent);
+                    Intent launchMapsIntent = new Intent(MainActivity.this, MapsActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArrayList(INTENT_PARAMATER_KEY_IP_ADDRESS, ipAddressArray);
+                    launchMapsIntent.putExtras(bundle);
+                    MainActivity.this.startActivity(launchMapsIntent);
+                } else {
+//                    Toast warningToast = new Toast(MainActivity.this);
+//                    warningToast.makeText(MainActivity.this, "ip address must match pattern!!!", Toast.LENGTH_LONG);
+//                    warningToast.show();
+                    Toast.makeText(getApplicationContext(), "ip address must match pattern!!!", Toast.LENGTH_LONG).show();
+                }
             }
         });
-
-
-        List<String> testStringArray = stringArrayFromRange("127.0.0.1", "127.0.0.6");
-        System.out.println("YOYOYOYOY: " + Integer.toString(testStringArray.size()));
     }
 
-    private List<String> stringArrayFromRange(String startIPAddressRange, String stopIPAddressRange) {
+    private ArrayList<String> stringArrayFromRange(String startIPAddressRange, String stopIPAddressRange) {
         int startInteger = convertIPAddressStringToInt(startIPAddressRange);
         int stopInteger = convertIPAddressStringToInt(stopIPAddressRange);
 
         //Switches order in case user has reversed ip address range fields
-        if (startInteger < stopInteger){
+        if (startInteger < stopInteger) {
             int newStopInt = startInteger;
             startInteger = stopInteger;
             stopInteger = newStopInt;
         }
 
-        List<String> ipAddressesArray = new ArrayList<>();
+        ArrayList<String> ipAddressesArray = new ArrayList<>();
         while (startInteger <= stopInteger) {
             InetAddress inetAddress = ipIntToInetAddress(startInteger);
             ipAddressesArray.add(inetAddress.toString());
