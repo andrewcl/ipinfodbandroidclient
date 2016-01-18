@@ -122,7 +122,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         if (!mDrawnMarkersMap.containsKey(coordinates)) {
-            Marker marker = mMap.addMarker(new MarkerOptions().position(coordinates).title("Marker at TransLoc"));
+            String title = "Lat: " + coordinates.latitude + ", Lng: " + coordinates.longitude;
+            Marker marker = mMap.addMarker(new MarkerOptions().position(coordinates).title(title));
             mDrawnMarkersMap.put(coordinates, marker);
             return true;
         }
@@ -219,7 +220,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         protected void onPostExecute(Boolean downloadSuccess) {
             if (coordinates != null) {
                 mCoordinatesQueue.add(coordinates);
-                addMarkerToMapAndRefresh(coordinates);
+//                addMarkerToMapAndRefresh(coordinates);
+                processCoordinateBacklog();
             }
         }
     }
